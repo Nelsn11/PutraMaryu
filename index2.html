@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Profile CV</title>
+    <link rel="icon" href="https://example.com/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="png/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="png/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="png/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <style>
+        :root {
+            --primary-color: #007BFF;
+            --secondary-color: #f4f4f4;
+            --text-color: #333;
+            --background-color: #e9f2fc;
+        }
+
+        body.dark-mode {
+            --primary-color: #4a90e2;
+            --secondary-color: #333;
+            --text-color: #f4f4f4;
+            --background-color: #1a1a1a;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .header p {
+            margin: 10px 0 0;
+            font-size: 1.2rem;
+        }
+
+        .dark-mode-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+
+        .dark-mode-toggle.dark {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .portfolio-item {
+            transform: scale(1);
+            transition: transform 0.3s;
+        }
+
+        .portfolio-item:hover {
+            transform: scale(1.05);
+        }
+
+        .contact-form button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .contact-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            display: none;
+            padding: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <button class="dark-mode-toggle">Enable Dark Mode</button>
+
+    <div class="header">
+        <h1>John Doe</h1>
+        <p>Full Stack Developer | Problem Solver | Lifelong Learner</p>
+    </div>
+
+    <div class="container">
+        <div class="section contact-form">
+            <h3>Contact Me</h3>
+            <form id="contactForm">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+
+                <button type="submit">Send Message</button>
+                <div class="message" id="successMessage">Thank you! Your message has been sent.</div>
+            </form>
+        </div>
+
+        <div class="section">
+            <h3>Portfolio</h3>
+            <div class="portfolio">
+                <div class="portfolio-item">Project 1</div>
+                <div class="portfolio-item">Project 2</div>
+                <div class="portfolio-item">Project 3</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle dark mode
+        const darkModeToggle = document.querySelector('.dark-mode-toggle');
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            darkModeToggle.textContent = isDarkMode ? 'Disable Dark Mode' : 'Enable Dark Mode';
+            darkModeToggle.classList.toggle('dark', isDarkMode);
+        });
+
+        // Animate portfolio items on scroll
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'scale(1)';
+                } else {
+                    entry.target.style.opacity = 0.5;
+                    entry.target.style.transform = 'scale(0.9)';
+                }
+            });
+        });
+
+        portfolioItems.forEach(item => {
+            observer.observe(item);
+        });
+
+        // Form submission handler
+        const contactForm = document.getElementById('contactForm');
+        const successMessage = document.getElementById('successMessage');
+
+        contactForm.addEventListener('submit', event => {
+            event.preventDefault();
+            successMessage.style.display = 'block';
+
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+                contactForm.reset();
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
